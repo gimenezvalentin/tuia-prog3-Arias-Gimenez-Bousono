@@ -17,13 +17,29 @@ class DepthFirstSearch:
         """
         # Initialize root node
         root = Node("", state=grid.initial, cost=0, parent=None, action=None)
-
+        
+        if grid.objective_test(root.state):
+            return Solution(root)
+        
         # Initialize explored with the initial state
         explored = {}
         explored[root.state] = True
 
         # Initialize frontier with the root node
-        # TODO Complete the rest!!
-        # ...
+        frontier = StackFrontier()
+        frontier.add(root)
+        
+        while not frontier.is_empty():
+            n = frontier.remove()
+            # if n.state in explored:
+            #     continue
+            explored[n.state] = True
+            for a in grid.actions(n.state):
+                s = grid.result(n.state,a)
+                if s not in explored:
+                    m = Node("", s, n.cost + grid.individual_cost(n.state, a), n, a)
+                    if grid.objective_test(s):
+                        return Solution(m, explored)
+                    frontier.add(m)
 
         return NoSolution(explored)
