@@ -21,9 +21,8 @@ class DepthFirstSearch:
         if grid.objective_test(root.state):
             return Solution(root)
         
-        # Initialize explored with the initial state
+        # Initialize explored
         explored = {}
-        explored[root.state] = True
 
         # Initialize frontier with the root node
         frontier = StackFrontier()
@@ -31,9 +30,10 @@ class DepthFirstSearch:
         
         while not frontier.is_empty():
             n = frontier.remove()
-            # if n.state in explored:
-            #     continue
+            if n.state in explored:
+                continue
             explored[n.state] = True
+            
             for a in grid.actions(n.state):
                 s = grid.result(n.state,a)
                 if s not in explored:

@@ -36,8 +36,7 @@ class BreadthFirstSearch:
                 s = grid.result(n.state, a)
                 
                 if s not in reached:
-                    m = Node("", s, n.cost + grid.individual_cost(n.state,a), n, a)
-                    
+                    m = Node("", s, n.cost + grid.individual_cost(n.state,a), n, a) 
                     if grid.objective_test(s):
                         return Solution(m, reached)
                     reached[m.state] = True
