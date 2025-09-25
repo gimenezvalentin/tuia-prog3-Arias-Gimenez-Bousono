@@ -111,3 +111,11 @@ class Grid:
 
     def __repr__(self) -> str:
         return f"Grid([[...], ...], {self.initial}, {self.end})"
+
+    def h(self, node:'Node')->float:
+        'heurista basada en la distancia euclidiana'
+        x, y = node.state
+        dest_x, dest_y = self.end
+        d = ((dest_x - x)**2 + (dest_y - y)**2) * 0,5
+        return d
+    
