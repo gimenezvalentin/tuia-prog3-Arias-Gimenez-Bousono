@@ -116,6 +116,5 @@ class Grid:
         """heuristica basada en la distancia euclidiana"""
         x, y = node.state
         dest_x, dest_y = self.end
-        d = ((dest_x - x)**2 + (dest_y - y)**2) * 0.5
-        return d
+        return ((dest_x - x)**2 + (dest_y - y)**2) * 0.5
     

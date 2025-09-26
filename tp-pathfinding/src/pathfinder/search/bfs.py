@@ -24,7 +24,6 @@ class BreadthFirstSearch:
         # Initialize frontier with root
         frontier = QueueFrontier()
         frontier.add(root)
-
         # Initialize reached with the initial state
         reached = {}
         reached[root.state] = True
