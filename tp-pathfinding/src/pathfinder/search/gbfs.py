@@ -22,7 +22,7 @@ class GreedyBestFirstSearch:
         reached[root.state] = root.cost
         
         frontier = PriorityQueueFrontier()
-        frontier.add(root, grid.h(root))
+        frontier.add(root, grid.hmanhattan(root))
         print(grid.h(root))
         
 
@@ -37,7 +37,7 @@ class GreedyBestFirstSearch:
                 if s not in reached or cos < reached[s]:
                     m = Node("", s, cos, n, a)
                     reached[s] = cos
-                    frontier.add(m, grid.h(m))
+                    frontier.add(m, grid.hmanhattan(m))
                     print(grid.h(m))
                     
         return NoSolution(reached)

@@ -118,3 +118,8 @@ class Grid:
         dest_x, dest_y = self.end
         return ((dest_x - x)**2 + (dest_y - y)**2) * 0.5
     
+    def hmanhattan(self, node:'Node')->float:
+        """heuristica basada en formula de manhattan""" 
+        x, y = node.state
+        dest_x, dest_y = self.end
+        return abs(dest_x - x) + abs(dest_y - y)

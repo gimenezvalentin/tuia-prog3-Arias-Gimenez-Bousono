@@ -24,7 +24,7 @@ class AStarSearch:
 
         # Initialize frontier with the root node
         frontier = PriorityQueueFrontier()
-        frontier.add(root, root.cost + grid.h(root))
+        frontier.add(root, root.cost + grid.hmanhattan(root))
         
         while not frontier.is_empty():
             n = frontier.pop()
@@ -37,5 +37,5 @@ class AStarSearch:
                 if s not in reached or cos < reached[s]:
                     m = Node("", s, cos, n, a)
                     reached[s] = cos
-                    frontier.add(m, m.cost + grid.h(m))
+                    frontier.add(m, m.cost + grid.hmanhattan(m))
         return NoSolution(reached)
