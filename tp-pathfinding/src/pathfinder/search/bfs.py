@@ -29,16 +29,16 @@ class BreadthFirstSearch:
         reached[root.state] = True
 
         while not frontier.is_empty():
-            n = frontier.remove()
+            node = frontier.remove()
             
-            for a in grid.actions(n.state):
-                s = grid.result(n.state, a)
+            for action in grid.actions(node.state):
+                state = grid.result(node.state, action)
                 
-                if s not in reached:
-                    m = Node("", s, n.cost + grid.individual_cost(n.state,a), n, a) 
-                    if grid.objective_test(s):
-                        return Solution(m, reached)
-                    reached[m.state] = True
-                    frontier.add(m)
+                if state not in reached:
+                    new_node = Node("", state, node.cost + grid.individual_cost(node.state, action), node, action) 
+                    if grid.objective_test(state):
+                        return Solution(new_node, reached)
+                    reached[new_node.state] = True
+                    frontier.add(new_node)
                     
         return NoSolution(reached)

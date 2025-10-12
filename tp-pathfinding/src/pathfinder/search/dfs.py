@@ -29,17 +29,23 @@ class DepthFirstSearch:
         frontier.add(root)
         
         while not frontier.is_empty():
-            n = frontier.remove()
-            if n.state in explored:
+
+            node = frontier.remove()
+
+            if node.state in explored:
                 continue
-            explored[n.state] = True
+
+            explored[node.state] = True
             
-            for a in grid.actions(n.state):
-                s = grid.result(n.state,a)
-                if s not in explored:
-                    m = Node("", s, n.cost + grid.individual_cost(n.state, a), n, a)
-                    if grid.objective_test(s):
-                        return Solution(m, explored)
-                    frontier.add(m)
+            for action in grid.actions(node.state):
+                state = grid.result(node.state, action)
+
+                if state not in explored:
+                    new_node = Node("", state, node.cost + grid.individual_cost(node.state, action), node, action)
+
+                    if grid.objective_test(state):
+                        return Solution(new_node, explored)
+                    
+                    frontier.add(new_node)
 
         return NoSolution(explored)

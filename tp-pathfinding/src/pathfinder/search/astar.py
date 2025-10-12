@@ -27,15 +27,25 @@ class AStarSearch:
         frontier.add(root, root.cost + grid.hmanhattan(root))
         
         while not frontier.is_empty():
-            n = frontier.pop()
-            if grid.objective_test(n.state):
-                return Solution(n, reached)
+            node = frontier.pop()
+
+            if grid.objective_test(node.state):
+                return Solution(node, reached)
             
-            for a in grid.actions(n.state):
-                s = grid.result(n.state,a)
-                cos = n.cost + grid.individual_cost(n.state, a)
-                if s not in reached or cos < reached[s]:
-                    m = Node("", s, cos, n, a)
-                    reached[s] = cos
-                    frontier.add(m, m.cost + grid.hmanhattan(m))
+            for action in grid.actions(node.state):
+
+                state = grid.result(node.state, action)
+                cos = node.cost + grid.individual_cost(node.state, action)
+
+                print(state, cos)
+
+                if state not in reached or cos < reached[state]:
+                    new_node = Node("", state, cos, node, action)
+                    reached[state] = cos
+                    frontier.add(new_node, new_node.cost + grid.hmanhattan(new_node))
+
+                    print(new_node)
+
+
+                    
         return NoSolution(reached)
