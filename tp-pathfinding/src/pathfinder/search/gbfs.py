@@ -34,11 +34,11 @@ class GreedyBestFirstSearch:
             for action in grid.actions(node.state):
                 state = grid.result(node.state, action)
                 cos = node.cost + grid.individual_cost(node.state, action)
-                
+
                 if state not in reached or cos < reached[state]:
                     new_node = Node("", state, cos, node, action)
                     reached[state] = cos
-                    frontier.add(new_node, grid.hmanhattan(new_node))
-                    print(grid.h(new_node))
+                    frontier.add(new_node, grid.h(new_node))
+                    print(grid.hmanhattan(new_node))
                     
         return NoSolution(reached)

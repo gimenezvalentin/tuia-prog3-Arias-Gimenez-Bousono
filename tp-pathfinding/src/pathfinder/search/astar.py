@@ -37,14 +37,11 @@ class AStarSearch:
                 state = grid.result(node.state, action)
                 cos = node.cost + grid.individual_cost(node.state, action)
 
-                print(state, cos)
 
                 if state not in reached or cos < reached[state]:
                     new_node = Node("", state, cos, node, action)
                     reached[state] = cos
                     frontier.add(new_node, new_node.cost + grid.hmanhattan(new_node))
-
-                    print(new_node)
 
 
                     

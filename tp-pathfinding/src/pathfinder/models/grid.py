@@ -116,7 +116,7 @@ class Grid:
         """heuristica basada en la distancia euclidiana"""
         x, y = node.state
         dest_x, dest_y = self.end
-        return ((dest_x - x)**2 + (dest_y - y)**2) * 0.5
+        return ((dest_x - x)**2 + (dest_y - y)**2) ** 0.5
     
     def hmanhattan(self, node:'Node')->float:
         """heuristica basada en formula de manhattan""" 
