@@ -90,7 +90,7 @@ class ModernTatetiGUI:
         # Dropdown para modo de juego
         mode_rect = self.buttons['game_mode']
         dropdowns['mode'] = {
-            'rect': pygame.Rect(mode_rect.x, mode_rect.bottom, mode_rect.width, 3 * (BUTTON_HEIGHT + 2)),
+            'rect': pygame.Rect(mode_rect.x, mode_rect.bottom, mode_rect.width, 3 * (BUTTON_HEIGHT + 3)),
             'options': [
                 ('human_vs_human', 'Humano vs Humano'),
                 ('human_vs_ai', 'Humano vs IA'),
@@ -101,7 +101,7 @@ class ModernTatetiGUI:
         # Dropdown para estrategia de IA
         strategy_rect = self.buttons['ai_strategy']
         dropdowns['strategy'] = {
-            'rect': pygame.Rect(strategy_rect.x, strategy_rect.bottom, strategy_rect.width, 2 * (BUTTON_HEIGHT + 2)),
+            'rect': pygame.Rect(strategy_rect.x, strategy_rect.bottom, strategy_rect.width, 3 * (BUTTON_HEIGHT + 2)),
             'options': [
                 ('aleatoria', 'Estrategia Aleatoria'),
                 ('minimax', 'Algoritmo Minimax'),

@@ -109,8 +109,8 @@ class Tateti:
         
         # Verificar si el tablero está lleno
         return all(casilla != CASILLA_VACIA 
-                  for fila in estado 
-                  for casilla in fila)
+                for fila in estado 
+                for casilla in fila)
 
     def utilidad(self, estado: List[List[str]], jugador: str = JUGADOR_MAX) -> float:
         """

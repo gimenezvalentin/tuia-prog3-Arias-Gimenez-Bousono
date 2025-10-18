@@ -120,12 +120,12 @@ def estrategia_minimax_alfa_beta(tateti: Tateti, estado: List[List[str]]) -> Tup
 def MINIMAX_MAX_AB(tateti: Tateti, estado: List[List[str]], alfa = -math.inf, beta = math.inf):
     if tateti.test_terminal(estado):
         return tateti.utilidad(estado, JUGADOR_MAX)
-
+    
     valor = -math.inf
 
     for accion in tateti.acciones(estado):
         sucesor = tateti.resultado(estado, accion)
-        valor = max(valor, MINIMAX_MIN(tateti, sucesor, alfa, beta))
+        valor = max(valor, MINIMAX_MIN_AB(tateti, sucesor, alfa, beta))
         if valor >= beta:
             return valor
         alfa = max(alfa, valor)
@@ -136,11 +136,11 @@ def MINIMAX_MIN_AB(tateti: Tateti, estado: List[List[str]], alfa = -math.inf, be
     if tateti.test_terminal(estado):
         return tateti.utilidad(estado, JUGADOR_MAX)
 
-    valor = -math.inf
+    valor = math.inf
 
     for accion in tateti.acciones(estado):
         sucesor = tateti.resultado(estado, accion)
-        valor = max(valor, MINIMAX_MIN(tateti, sucesor, alfa, beta))
+        valor = min(valor, MINIMAX_MAX_AB(tateti, sucesor, alfa, beta))
         
         if valor <= alfa:
             return valor
