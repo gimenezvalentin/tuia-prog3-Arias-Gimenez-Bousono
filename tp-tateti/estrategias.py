@@ -94,6 +94,60 @@ def MINIMAX_MIN(tateti: Tateti, estado: List[List[str]]):
 
     return valor
 
+
+#-------------------------------------
+def estrategia_minimax_alfa_beta(tateti: Tateti, estado: List[List[str]]) -> Tuple[int, int]:
+
+
+    if tateti.jugador(estado) == JUGADOR_MAX:
+        sucesor = {}
+
+        for accion in tateti.acciones(estado):
+            sucesor[accion] = MINIMAX_MIN_AB(tateti, tateti.resultado(estado, accion))
+        
+        return max(sucesor, key=sucesor.get)
+
+            
+    if tateti.jugador(estado) == JUGADOR_MIN:
+        sucesor = {}
+
+        for accion in tateti.acciones(estado):
+            sucesor[accion] = MINIMAX_MAX_AB(tateti, tateti.resultado(estado, accion))
+        
+        return min(sucesor, key=sucesor.get)
+
+
+def MINIMAX_MAX_AB(tateti: Tateti, estado: List[List[str]], alfa = -math.inf, beta = math.inf):
+    if tateti.test_terminal(estado):
+        return tateti.utilidad(estado, JUGADOR_MAX)
+
+    valor = -math.inf
+
+    for accion in tateti.acciones(estado):
+        sucesor = tateti.resultado(estado, accion)
+        valor = max(valor, MINIMAX_MIN(tateti, sucesor, alfa, beta))
+        if valor >= beta:
+            return valor
+        alfa = max(alfa, valor)
+        
+    return valor
+
+def MINIMAX_MIN_AB(tateti: Tateti, estado: List[List[str]], alfa = -math.inf, beta = math.inf):
+    if tateti.test_terminal(estado):
+        return tateti.utilidad(estado, JUGADOR_MAX)
+
+    valor = -math.inf
+
+    for accion in tateti.acciones(estado):
+        sucesor = tateti.resultado(estado, accion)
+        valor = max(valor, MINIMAX_MIN(tateti, sucesor, alfa, beta))
+        
+        if valor <= alfa:
+            return valor
+        beta = min(beta, valor)
+        
+    return valor
+
     # raise NotImplementedError(
     #     "\n" + "="*60 +
     #     "\n🚫 ALGORITMO MINIMAX NO IMPLEMENTADO" +

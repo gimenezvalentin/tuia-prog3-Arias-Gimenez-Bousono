@@ -6,7 +6,7 @@ import pygame
 import sys
 from typing import Tuple, Optional, List
 from tateti import Tateti
-from estrategias import estrategia_aleatoria, estrategia_minimax
+from estrategias import estrategia_aleatoria, estrategia_minimax, estrategia_minimax_alfa_beta
 
 # Configuración de colores (paleta moderna)
 COLORS = {
@@ -104,7 +104,8 @@ class ModernTatetiGUI:
             'rect': pygame.Rect(strategy_rect.x, strategy_rect.bottom, strategy_rect.width, 2 * (BUTTON_HEIGHT + 2)),
             'options': [
                 ('aleatoria', 'Estrategia Aleatoria'),
-                ('minimax', 'Algoritmo Minimax')
+                ('minimax', 'Algoritmo Minimax'),
+                ('minimax alfa beta', 'Algoritmo Minimax Alfa Beta')
             ]
         }
         
@@ -170,7 +171,8 @@ class ModernTatetiGUI:
         
         strategy_texts = {
             'aleatoria': 'Estrategia Aleatoria',
-            'minimax': 'Algoritmo Minimax'
+            'minimax': 'Algoritmo Minimax',
+            'minimax alfa beta': 'Algoritmo Minimax Alfa Beta'
         }
         text = FONT_SMALL.render(strategy_texts[self.ai_strategy], True, COLORS['button_text'])
         text_rect = text.get_rect(center=(strategy_rect.centerx - 8, strategy_rect.centery))
@@ -338,7 +340,8 @@ class ModernTatetiGUI:
             
             strategy_text = {
                 'aleatoria': 'Estrategia: Aleatoria',
-                'minimax': 'Estrategia: Minimax'
+                'minimax': 'Estrategia: Minimax',
+                'minimax alfa beta': 'Estrategia: Minimax Alfa Beta'
             }
             
             mode_info = FONT_SMALL.render(mode_text[self.game_mode], True, COLORS['text'])
@@ -474,6 +477,8 @@ class ModernTatetiGUI:
         # Elegir acción usando la estrategia seleccionada
         if self.ai_strategy == 'aleatoria':
             action = estrategia_aleatoria(self.tateti, self.current_state)
+        elif self.ai_strategy == 'minimax alfa beta':
+            action = estrategia_minimax_alfa_beta(self.tateti, self.current_state)
         else:  # minimax
             try:
                 action = estrategia_minimax(self.tateti, self.current_state)
