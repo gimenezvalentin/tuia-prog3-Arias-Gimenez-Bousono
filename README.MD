@@ -16,15 +16,15 @@ En este trabajo práctico, implementamos y comparamos varios algoritmos de búsq
 
 Se desarrollaron los siguientes algoritmos de búsqueda:
 
-1.  **Búsqueda en Anchura (BFS - Breadth-First Search):**
+1.  **Búsqueda en Anchura (BFS - Breadth-First Search)**
 
-2.  **Búsqueda en Profundidad (DFS - Depth-First Search):**
+2.  **Búsqueda en Profundidad (DFS - Depth-First Search)**
 
-3.  **Búsqueda de Costo Uniforme (UCS - Uniform-Cost Search):**
+3.  **Búsqueda de Costo Uniforme (UCS - Uniform-Cost Search)**
 
-4.  **Búsqueda Voraz Primero por lo Mejor (GBFS - Greedy Best-First Search):**
+4.  **Búsqueda Voraz Primero por lo Mejor (GBFS - Greedy Best-First Search)**
 
-5.  **A\* (A-Estrella):**
+5.  **A\* (A-Estrella)**
 ---
 
 ## ⭕❌ TP 2: Ta-Te-Ti con IA
@@ -33,6 +33,6 @@ En este proyecto, desarrollamos un agente de inteligencia artificial capaz de ju
 
 ### Estrategias Implementadas
 
-1.  **Algoritmo Minimax:**
+1.  **Algoritmo Minimax**
 
-2.  **Algoritmo Minimax con Poda Alfa-Beta:**
+2.  **Algoritmo Minimax con Poda Alfa-Beta**
