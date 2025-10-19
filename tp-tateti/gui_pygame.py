@@ -4,6 +4,7 @@ Interfaz gráfica moderna para el juego de Tateti usando Pygame
 
 import pygame
 import sys
+import time
 from typing import Tuple, Optional, List
 from tateti import Tateti
 from estrategias import estrategia_aleatoria, estrategia_minimax, estrategia_minimax_alfa_beta
@@ -60,6 +61,7 @@ class ModernTatetiGUI:
         self.game_active = True  # Juego activo por defecto
         self.game_over = False
         self.winner = None
+        self.ai_move_time = 0.0 # Tiempo
         
         # UI elements
         self.buttons = self._create_buttons()
@@ -352,6 +354,19 @@ class ModernTatetiGUI:
                 strategy_info = FONT_SMALL.render(strategy_text[self.ai_strategy], True, COLORS['text'])
                 strategy_rect = strategy_info.get_rect(center=(WINDOW_WIDTH // 2, info_y + 55))
                 self.screen.blit(strategy_info, strategy_rect)
+                
+    
+    def _draw_timer_above_grid(self):
+        """Dibuja el tiempo total de la IA justo arriba de la grilla"""
+        if self.ai_move_time > 0:
+            time_text = f"Tiempo Total IA: {self.ai_move_time:.4f} s"
+            time_info = FONT_MEDIUM.render(time_text, True, COLORS['text'])
+            
+            # Posicionamos el texto 30 píxeles arriba del inicio de la grilla
+            new_y_position = GRID_OFFSET_Y - 25
+            time_rect = time_info.get_rect(center=(WINDOW_WIDTH // 2, new_y_position))
+            
+            self.screen.blit(time_info, time_rect)
     
     def _handle_button_click(self, pos: Tuple[int, int]):
         """Maneja los clics en botones y dropdowns"""
@@ -405,6 +420,7 @@ class ModernTatetiGUI:
         self.winner = None
         self.current_state = self.tateti.estado_inicial
         self.dropdown_open = None
+        self.ai_move_time = 0.0
         
         # Configurar jugador humano según el modo
         if self.game_mode == 'human_vs_ai':
@@ -474,6 +490,8 @@ class ModernTatetiGUI:
         # Pequeña pausa para efecto visual
         pygame.time.wait(500)
         
+        start_time = time.perf_counter() # TIEMPO INICIAL
+        
         # Elegir acción usando la estrategia seleccionada
         if self.ai_strategy == 'aleatoria':
             action = estrategia_aleatoria(self.tateti, self.current_state)
@@ -487,6 +505,9 @@ class ModernTatetiGUI:
                 print(str(e))
                 pygame.quit()
                 sys.exit(1)
+        
+        end_time = time.perf_counter()              # TIEMPO FINAL
+        self.ai_move_time += end_time - start_time   # TIEMPO GUARDADO
         
         if action:
             self._make_move(action)
@@ -547,6 +568,7 @@ class ModernTatetiGUI:
             self._draw_background()
             self._draw_toolbar()
             self._draw_title()
+            self._draw_timer_above_grid()
             self._draw_grid()
             self._draw_symbols()
             self._draw_game_info()
