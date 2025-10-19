@@ -55,10 +55,10 @@ def estrategia_minimax(tateti: Tateti, estado: List[List[str]]) -> Tuple[int, in
     if tateti.jugador(estado) == JUGADOR_MAX:
         sucesor = {}
 
-        for accion in tateti.acciones(estado):
-            sucesor[accion] = MINIMAX_MIN(tateti, tateti.resultado(estado, accion))
+        for accion in tateti.acciones(estado):  #Iteramos sobre las acc iniciales (movimientos posibles desde el estado actual)
+            sucesor[accion] = MINIMAX_MIN(tateti, tateti.resultado(estado, accion))  #Llamamos a MINIMAX_MIN, asumiendo que el oponente (MIN) jugara optimamente despues
         
-        return max(sucesor, key=sucesor.get)
+        return max(sucesor, key=sucesor.get) #Elegimos la acc que nos ofrece el maximo valor de utilidad
 
             
     if tateti.jugador(estado) == JUGADOR_MIN:
@@ -73,11 +73,11 @@ def MINIMAX_MAX(tateti: Tateti, estado: List[List[str]]):
     if tateti.test_terminal(estado):
         return tateti.utilidad(estado, JUGADOR_MAX)
 
-    valor = -math.inf
+    valor = -math.inf  # Inicializamos con el peor valor posible para un jugador MAX
 
     for accion in tateti.acciones(estado):
         sucesor = tateti.resultado(estado, accion)
-        valor = max(valor, MINIMAX_MIN(tateti, sucesor))
+        valor = max(valor, MINIMAX_MIN(tateti, sucesor)) #MAX toma el máximo entre su val actual y el val devuelto por el nodo MIN sucesor
 
     return valor
 
@@ -86,11 +86,11 @@ def MINIMAX_MIN(tateti: Tateti, estado: List[List[str]]):
     if tateti.test_terminal(estado):
         return tateti.utilidad(estado, JUGADOR_MAX)
 
-    valor = math.inf
+    valor = math.inf # Inicializamos con el peor valor posible para un jugador MIN
 
     for accion in tateti.acciones(estado):
         sucesor = tateti.resultado(estado, accion)
-        valor = min(valor, MINIMAX_MAX(tateti, sucesor))
+        valor = min(valor, MINIMAX_MAX(tateti, sucesor)) #MIN toma el mínimo entre su val actual y el val devuelto por el nodo MAX sucesor
 
     return valor
 
@@ -125,9 +125,10 @@ def MINIMAX_MAX_AB(tateti: Tateti, estado: List[List[str]], alfa = -math.inf, be
 
     for accion in tateti.acciones(estado):
         sucesor = tateti.resultado(estado, accion)
-        valor = max(valor, MINIMAX_MIN_AB(tateti, sucesor, alfa, beta))
-        if valor >= beta:
-            return valor
+        valor = max(valor, MINIMAX_MIN_AB(tateti, sucesor, alfa, beta))  #La llamada recursiva pasa los valores de alfa y beta actualizados
+        
+        if valor >= beta:  #Si el val encontrado es mayor o igual a 'beta' (el límite garantizado por MIN), podemos cortar
+            return valor   #Se devuelve el valor inmediatamente, sin explorar más ramas
         alfa = max(alfa, valor)
         
     return valor
@@ -142,7 +143,7 @@ def MINIMAX_MIN_AB(tateti: Tateti, estado: List[List[str]], alfa = -math.inf, be
         sucesor = tateti.resultado(estado, accion)
         valor = min(valor, MINIMAX_MAX_AB(tateti, sucesor, alfa, beta))
         
-        if valor <= alfa:
+        if valor <= alfa: #Si el valor encontrado es menor o igual a 'alfa' (el límite garantizado por MAX), podemos cortar
             return valor
         beta = min(beta, valor)
         
